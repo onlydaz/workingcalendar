@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View History</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/list.css}">
+</head>
+<body>
+
+<nav>
+    <a href="/home">Home</a>
+    <a href="/view">View Calendar</a>
+    <a href="/history">History</a>
+</nav>
+
+<h1>View History</h1>
+
+<!-- Search Form -->
+<form th:action="@{/history/search}" method="get" class="form-inline" style="margin-bottom: 30px;">
+    <div class="form-group">
+        <label for="accountName">Name:</label>
+        <select id="accountName" name="accountName" class="form-control mx-sm-2">
+            <option value="">None</option>
+            <option th:each="name : ${accountNames}" th:value="${name}" th:text="${name}"></option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-info">Search</button>
+</form>
+
+
+<!-- Table Styling -->
+<table class="table table-bordered text-center">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Calendar ID</th>
+            <th>Name</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Section</th>
+            <th>Mon</th>
+            <th>Tue</th>
+            <th>Wed</th>
+            <th>Thu</th>
+            <th>Fri</th>
+            <th>Sat</th>
+            <th>Sun</th>
+            <th>Note</th>
+            <th>Action</th>
+            <th>Changed At</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="history, iterStat : ${histories}">
+            <td th:text="${history.id}"></td>
+            <td th:text="${history.workingCalendarId}"></td>
+
+            <!-- Display 'Name', 'From', 'To', 'Note', 'Action' only once for each pair (odd/even IDs) -->
+            <td th:text="${history.name}" th:if="${iterStat.index % 2 == 0}" rowspan="2"></td>
+            <td th:text="${history.fromDate}" th:if="${iterStat.index % 2 == 0}" rowspan="2"></td>  
+            <td th:text="${history.toDate}" th:if="${iterStat.index % 2 == 0}" rowspan="2"></td>
+           
+            <td th:text="${history.section}"></td>
+            <td th:text="${history.mon}"></td>
+            <td th:text="${history.tue}"></td>
+            <td th:text="${history.wed}"></td>
+            <td th:text="${history.thu}"></td>
+            <td th:text="${history.fri}"></td>
+            <td th:text="${history.sat}"></td>
+            <td th:text="${history.sun}"></td>
+
+            <td th:text="${history.note}" th:if="${iterStat.index % 2 == 0}" rowspan="2"></td>
+            <td th:text="${history.action}" th:if="${iterStat.index % 2 == 0}" rowspan="2"></td>
+            <td th:text="${#temporals.format(history.changedAt, 'yyyy-MM-dd HH:mm:ss')}" 
+    			th:if="${iterStat.index % 2 == 0}" rowspan="2"></td>
+        </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

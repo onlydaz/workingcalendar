@@ -1,0 +1,139 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+nav {
+    background-color: #f8f9fa;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+nav a {
+    color: #007bff;
+    text-decoration: none;
+    margin-right: 15px;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+form {
+    max-width: 600px;
+    margin: auto;
+}
+
+.day-row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.day-row div {
+    flex: 1;
+    margin: 5px;
+    text-align: center;
+}
+
+label {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+input[type="text"],
+input[type="date"],
+textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    box-sizing: border-box;
+}
+
+.submit-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background-color: #45a049;
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid #dee2e6;
+}
+
+th, td {
+    text-align: center;
+    padding: 8px;
+}
+
+/* Input styling inside table */
+.table-input {
+    border: none;
+    width: 100%;
+    text-align: center;
+    padding: 2px;
+    font-size: 16px;
+    height: 15px;   /* Giảm chiều cao của ô nhập liệu */
+}
+
+/* Remove focus outline for a cleaner look */
+.table-input:focus {
+    outline: none;
+    border-bottom: 1px solid #007bff;
+}
+
+/* Styling for Save button */
+.submit-btn {
+    display: block;
+    margin-top: 15px;
+    width: 100%;
+    font-size: 16px;
+}
+
+/* Inline styling for "From", "To", and "Name" fields */
+.form-inline-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.form-inline-group label {
+    margin: 0;
+    font-weight: bold;
+}
+
+/* Styling for both Save and Update buttons to have the same size */
+.btn {
+    width: 200px; /* Set the same width for both buttons */
+    height: 40px; /* Set the same height for both buttons */
+}
+
+/* Table Header Styling (Mon, Tue, Wed, Thu, Fri, Sat, Sun) */
+table th {
+    background-color: #F2F2F2; /* Gray color */
+}
+
+/* AM and PM Row Styling */
+table tr td:first-child {
+    background-color: #FFF59D;
+}

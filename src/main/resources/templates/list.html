@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Working Calendar</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/list.css}">
+</head>
+<body>
+
+<nav>
+    <a href="/home">Home</a>
+    <a href="/view">View Calendar</a>
+    <a href="/history">History</a>
+</nav>
+
+<h1>View Working Calendar</h1>
+
+<!-- Search Form -->
+<form action="/view/search" method="get" class="form-inline mb-4">
+    <label for="fromDate">From:</label>
+    <input type="date" id="fromDate" name="fromDate" class="form-control ml-2">
+    <label for="toDate" class="ml-2">To:</label>
+    <input type="date" id="toDate" name="toDate" class="form-control ml-2">
+    <button type="submit" class="btn btn-info ml-2">Search</button>
+</form>
+
+<!-- Table Styling -->
+<table class="table table-bordered text-center">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Name</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Section</th>
+            <th>Mon</th>
+            <th>Tue</th>
+            <th>Wed</th>
+            <th>Thu</th>
+            <th>Fri</th>
+            <th>Sat</th>
+            <th>Sun</th>
+            <th>Note</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="calendar, iterStat : ${calendars}">
+            <td th:text="${calendar.id}"></td>
+
+            <!-- Display 'Name', 'From', 'To', 'Note', 'Actions' only once for each pair (odd/even IDs) -->
+            <td th:text="${calendar.name}" th:if="${iterStat.index % 2 == 0}" rowspan="2"></td>
+            <td th:text="${calendar.fromDate}" th:if="${iterStat.index % 2 == 0}" rowspan="2"></td> 
+            <td th:text="${calendar.toDate}" th:if="${iterStat.index % 2 == 0}" rowspan="2"></td>
+            
+            <td th:text="${calendar.section}"></td>
+            <td th:text="${calendar.mon}"></td>
+            <td th:text="${calendar.tue}"></td>
+            <td th:text="${calendar.wed}"></td>
+            <td th:text="${calendar.thu}"></td>
+            <td th:text="${calendar.fri}"></td>
+            <td th:text="${calendar.sat}"></td>
+            <td th:text="${calendar.sun}"></td>
+
+            <td th:text="${calendar.note}" th:if="${iterStat.index % 2 == 0}" rowspan="2"></td>
+            
+            <td th:if="${iterStat.index % 2 == 0}" rowspan="2">
+                <a th:href="@{/view/edit/{id}(id=${calendar.id})}" class="action-btn edit-btn">Edit</a>
+                <a th:href="@{/view/delete/{id}(id=${calendar.id})}" class="action-btn delete-btn">Delete</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
