@@ -20,10 +20,12 @@
 <!-- Search Form -->
 <form action="/view/search" method="get" class="form-inline mb-4">
     <label for="fromDate">From:</label>
-    <input type="date" id="fromDate" name="fromDate" class="form-control ml-2">
+    <input type="date" id="fromDate" name="fromDate" class="form-control ml-2" th:value="${fromDate}"> 
     <label for="toDate" class="ml-2">To:</label>
-    <input type="date" id="toDate" name="toDate" class="form-control ml-2">
+    <input type="date" id="toDate" name="toDate" class="form-control ml-2" th:value="${toDate}">
     <button type="submit" class="btn btn-info ml-2">Search</button>
+    
+    <button type="submit" formaction="/view/export" formmethod="get" class="btn btn-success ml-2 ml-auto">Export to Excel</button>
 </form>
 
 <!-- Table Styling -->
@@ -32,8 +34,6 @@
         <tr>
             <th></th>
             <th>Name</th>
-            <th>From</th>
-            <th>To</th>
             <th>Section</th>
             <th>Mon</th>
             <th>Tue</th>
@@ -43,6 +43,8 @@
             <th>Sat</th>
             <th>Sun</th>
             <th>Note</th>
+            <th>From</th>
+            <th>To</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -51,9 +53,7 @@
             <td th:text="${calendar.id}"></td>
 
             <!-- Display 'Name', 'From', 'To', 'Note', 'Actions' only once for each pair (odd/even IDs) -->
-            <td th:text="${calendar.name}" th:if="${iterStat.index % 2 == 0}" rowspan="2"></td>
-            <td th:text="${calendar.fromDate}" th:if="${iterStat.index % 2 == 0}" rowspan="2"></td> 
-            <td th:text="${calendar.toDate}" th:if="${iterStat.index % 2 == 0}" rowspan="2"></td>
+            <td th:text="${calendar.name}" th:if="${iterStat.index % 2 == 0}" rowspan="2"></td>        
             
             <td th:text="${calendar.section}"></td>
             <td th:text="${calendar.mon}"></td>
@@ -65,6 +65,8 @@
             <td th:text="${calendar.sun}"></td>
 
             <td th:text="${calendar.note}" th:if="${iterStat.index % 2 == 0}" rowspan="2"></td>
+            <td th:text="${calendar.fromDate}" th:if="${iterStat.index % 2 == 0}" rowspan="2"></td> 
+            <td th:text="${calendar.toDate}" th:if="${iterStat.index % 2 == 0}" rowspan="2"></td>
             
             <td th:if="${iterStat.index % 2 == 0}" rowspan="2">
                 <a th:href="@{/view/edit/{id}(id=${calendar.id})}" class="action-btn edit-btn">Edit</a>

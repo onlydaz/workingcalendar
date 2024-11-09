@@ -4,6 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+
+import java.sql.Date;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Table;
 
@@ -16,10 +19,10 @@ public class WorkingCalendar {
     private Long id;
 
     @Column(name = "from_date")
-    private java.sql.Date fromDate;
+    private Date fromDate;
 
     @Column(name = "to_date")
-    private java.sql.Date toDate;
+    private Date toDate;
 
     @Column(name = "name")
     private String name;
