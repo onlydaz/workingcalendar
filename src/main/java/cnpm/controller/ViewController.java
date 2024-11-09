@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import cnpm.model.WorkingCalendar;
 import cnpm.service.WorkingCalendarService;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.http.HttpHeaders;
@@ -71,7 +72,30 @@ public class ViewController {
 
         try (Workbook workbook = new XSSFWorkbook()) {
             Sheet sheet = workbook.createSheet("Working Calendar");
+            
+            // Tạo kiểu cho tiêu đề
+            CellStyle titleStyle = workbook.createCellStyle();
+            XSSFFont titleFont = ((XSSFWorkbook) workbook).createFont();
+            titleFont.setFontHeightInPoints((short) 14);
+            titleFont.setBold(true);
+            titleStyle.setFont(titleFont);
+            titleStyle.setAlignment(HorizontalAlignment.CENTER);
+            
+            // Thêm tiêu đề
+            Row titleRow = sheet.createRow(0);
+            Cell titleCell = titleRow.createCell(0);
+            
+            // Đặt nội dung theo ngày
+            String titleText = "LỊCH LÀM VIỆC";
+            if (from != null && to != null) {
+                titleText += " NGÀY " + fromDate + " ĐẾN " + toDate;
+            }
+            titleCell.setCellValue(titleText);
+            titleCell.setCellStyle(titleStyle);
 
+            // Merge cells for the title to span across all columns
+            sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 12));
+            
             // Tạo kiểu ô cho hàng tiêu đề
             CellStyle headerStyle = workbook.createCellStyle();
             headerStyle.setFillForegroundColor(IndexedColors.LIGHT_YELLOW.getIndex());
@@ -87,7 +111,7 @@ public class ViewController {
             headerStyle.setBorderRight(BorderStyle.THIN);
 
             // Hàng tiêu đề
-            Row headerRow = sheet.createRow(0);
+            Row headerRow = sheet.createRow(2);
             String[] headers = {"ID", "Name", "From Date", "To Date", "Section", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun", "Note"};
             for (int i = 0; i < headers.length; i++) {
                 Cell cell = headerRow.createCell(i);
@@ -104,7 +128,7 @@ public class ViewController {
             dataStyle.setAlignment(HorizontalAlignment.CENTER);
 
             // Các hàng dữ liệu
-            int rowNum = 1;
+            int rowNum = 3;
             for (WorkingCalendar calendar : calendars) {
                 Row row = sheet.createRow(rowNum++);
                 row.createCell(0).setCellValue(calendar.getId());

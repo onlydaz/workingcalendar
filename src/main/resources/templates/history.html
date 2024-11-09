@@ -23,10 +23,12 @@
         <label for="accountName">Name:</label>
         <select id="accountName" name="accountName" class="form-control mx-sm-2">
             <option value="">None</option>
-            <option th:each="name : ${accountNames}" th:value="${name}" th:text="${name}"></option>
+            <option th:each="name : ${accountNames}" 
+                    th:value="${name}" 
+                    th:text="${name}" 
+                    th:selected="${name == selectedAccountName}"></option>
         </select>
     </div>
-
     <button type="submit" class="btn btn-info">Search</button>
 </form>
 

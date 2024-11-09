@@ -37,6 +37,8 @@ public class HistoryController {
 
         model.addAttribute("histories", histories);
         model.addAttribute("accountNames", accountNames);
+        model.addAttribute("selectedAccountName", accountName);
+        
         return "history";
     }
 
